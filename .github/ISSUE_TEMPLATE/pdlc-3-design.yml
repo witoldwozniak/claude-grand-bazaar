@@ -1,0 +1,125 @@
+name: "PDLC Stage 3: Design"
+description: "Make the opinionated choices. Define primitives, boundaries, and integration points."
+title: "[design] "
+labels: ["stage/design"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **PDLC Stage 3 — Design.** Make the opinionated choices. Not every insight from Research belongs in the plugin. Ruthless selection is part of the craft.
+
+        > **Reminder:** Assign this issue to the plugin's milestone and add the `plugin/<name>` label.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the milestone name."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: research-issue
+    attributes:
+      label: Research issue
+      description: "Link to the completed Research stage issue (e.g., #44)."
+      placeholder: "#44"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: entry-criteria
+    attributes:
+      label: Entry criteria
+      description: Confirm before starting this stage.
+      options:
+        - label: Research stage is complete and issue is closed
+          required: true
+        - label: Sufficient domain understanding from Research
+          required: true
+
+  - type: textarea
+    id: opinion
+    attributes:
+      label: Plugin opinion
+      description: "What is this plugin's point of view? What stance does it take on how things should be done in this domain?"
+      placeholder: "This plugin believes that... Rather than X, it advocates Y because..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: primitives
+    attributes:
+      label: Primitives
+      description: Which building blocks will this plugin use?
+      options:
+        - label: Skills (knowledge and reasoning)
+        - label: Hooks (automated guardrails)
+        - label: Agents (focused craftsmen)
+        - label: MCP servers (external connections)
+        - label: LSP servers (real-time code intelligence)
+        - label: Commands (user-invoked entry points)
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: "Core plugins compose with other core plugins. Standalone plugins are self-contained."
+      options:
+        - Core plugin
+        - Standalone plugin
+    validations:
+      required: true
+
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Boundaries
+      description: "What does the plugin deliberately leave out? What is explicitly not its job?"
+      placeholder: |
+        - Does NOT handle...
+        - Defers to ... for ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: composition
+    attributes:
+      label: Composition notes
+      description: "For core plugins: how does it compose with the rest? Integration points, potential conflicts. For standalone: note that it's self-contained."
+      placeholder: |
+        - Integrates with plugin-authoring via...
+        - No overlapping hooks with...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform compatibility
+      description: "Cowork supports Skills, Agents, MCP servers, and Commands — no Hooks or LSP."
+      options:
+        - "Claude Code and Cowork (no Hooks or LSP dependencies)"
+        - "Claude Code only (requires Hooks and/or LSP)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: All must be checked before closing this issue and moving to Build.
+      options:
+        - label: Plugin opinion is named and documented
+        - label: Primitives are identified
+        - label: Boundaries are drawn
+        - label: Integration points documented (core plugins)
+        - label: Platform compatibility determined
+        - label: "**Code Actual has approved the design**"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Code Actual checkpoint:** The design must be approved before Build begins.

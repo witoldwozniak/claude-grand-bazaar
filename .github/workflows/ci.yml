@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Index freshness check
+        run: |
+          python scripts/index-research.py
+          python scripts/index-decisions.py
+          git diff --exit-code || {
+            echo "::error::Index files are out of date. Run the index scripts and commit the result."
+            exit 1
+          }
+
+      - name: JSON manifest validation
+        run: |
+          echo "Validating marketplace.json..."
+          python -m json.tool .claude-plugin/marketplace.json > /dev/null
+          for f in $(find plugins -name 'plugin.json' -path '*/.claude-plugin/*'); do
+            echo "Validating $f..."
+            python -m json.tool "$f" > /dev/null
+          done
+
+      - name: Manifest validation
+        run: python scripts/validate_manifests.py
+
+      - name: Frontmatter validation
+        run: python scripts/validate_frontmatter.py
+
+      - name: Internal link validation
+        run: python scripts/validate_links.py
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements-ci.txt
+
+      - name: Run tests
+        run: pytest tests/ -v

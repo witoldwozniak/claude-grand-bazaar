@@ -1,0 +1,86 @@
+name: Bug Report
+description: Report a defect in a plugin or the marketplace.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. Clear reproduction steps help us diagnose and fix faster.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? Be specific about the observed behavior.
+      placeholder: "When I install plugin-authoring and run the agent-creator, it..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps to trigger the problem.
+      placeholder: |
+        1. Install plugin-authoring
+        2. Run `/agent-creator` with ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Include error messages or unexpected output.
+    validations:
+      required: true
+
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin
+      description: "Which plugin is affected? Use the plugin name from the marketplace, or \"marketplace\" for repo-level concerns."
+      placeholder: "plugin-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: claude-code-version
+    attributes:
+      label: Claude Code version
+      description: "Output of `claude --version`."
+      placeholder: "1.0.x"
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "macOS 15.3 / Windows 11 / Ubuntu 24.04"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How badly does this affect your work?
+      options:
+        - Normal
+        - Low
+        - High
+        - Critical
+      default: 0
+    validations:
+      required: true

@@ -1,0 +1,122 @@
+name: "PDLC Stage 6: Review"
+description: "Structured self-review. Examine the plugin through quality, composition, boundary, and platform lenses."
+title: "[review] "
+labels: ["stage/review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **PDLC Stage 6 — Review.** Examine the plugin through structured lenses. Three outcomes: pass to Document, return to Build, or return to Design.
+
+        > **Reminder:** Assign this issue to the plugin's milestone and add the `plugin/<name>` label.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the milestone name."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: prove-issue
+    attributes:
+      label: Prove issue
+      description: "Link to the completed Prove stage issue (e.g., #56)."
+      placeholder: "#56"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: entry-criteria
+    attributes:
+      label: Entry criteria
+      description: Confirm before starting this stage.
+      options:
+        - label: Prove stage is complete and issue is closed
+          required: true
+        - label: Evidence log demonstrates plugin value in real work
+          required: true
+
+  - type: checkboxes
+    id: quality-bar
+    attributes:
+      label: "Quality bar — Doctrine criteria"
+      description: Does the plugin meet all five quality criteria from the Doctrine?
+      options:
+        - label: "**Research-grounded** — traceable to vetted sources"
+        - label: "**Well-documented** — stranger-readable"
+        - label: "**Composable** — no conflicts with other plugins"
+        - label: "**Opinionated** — takes a clear position"
+        - label: "**Tested in real work** — evidence from Prove stage"
+
+  - type: textarea
+    id: composition-check
+    attributes:
+      label: Composition check
+      description: "For core plugins: install alongside all existing core plugins. Any conflicts? Hook interference? Overlapping agent roles? For standalone: note N/A."
+      placeholder: |
+        Installed alongside: plugin-authoring
+        - Hook conflicts: none
+        - Agent role overlaps: none
+        - Other issues: none
+    validations:
+      required: true
+
+  - type: textarea
+    id: boundary-check
+    attributes:
+      label: Boundary check
+      description: "Does the plugin stay within its declared scope? Does it do things it said it wouldn't? Leave gaps in things it said it would cover?"
+      placeholder: |
+        - Scope adherence: ...
+        - Unexpected overreach: none / ...
+        - Coverage gaps: none / ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: platform-check
+    attributes:
+      label: Platform check
+      description: "If designed as Cowork-compatible, verify no Hook or LSP dependencies. If Claude Code-only, verify documentation says so."
+      placeholder: |
+        - Designed as: Claude Code and Cowork / Claude Code only
+        - Verification: ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Review outcome
+      description: "Select the review outcome. Update this when the review is complete."
+      options:
+        - "Pending — review not yet complete"
+        - "Pass — proceed to Document"
+        - "Return to Build — implementation issues found"
+        - "Return to Design — opinion or scope needs rethinking"
+      default: 0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: All must be checked before closing this issue and moving to Document.
+      options:
+        - label: Quality bar assessment complete (all 5 criteria checked)
+        - label: Composition check complete
+        - label: Boundary check complete
+        - label: Platform check complete
+        - label: Review outcome is "Pass"
+        - label: Any issues resolved or explicitly accepted as known limitations
+        - label: "**Code Actual has approved proceeding to Document**"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Code Actual checkpoint:** Findings acceptable, proceed to Document.

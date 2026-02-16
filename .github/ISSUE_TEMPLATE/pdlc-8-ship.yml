@@ -1,0 +1,90 @@
+name: "PDLC Stage 8: Ship"
+description: "Put it on the shelves. Final checklist before the plugin becomes installable and discoverable."
+title: "[ship] "
+labels: ["stage/ship"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **PDLC Stage 8 — Ship.** Put it on the shelves. This is the final stage before the plugin is live.
+
+        After shipping, verify the plugin works when installed fresh — not from the development environment, but as a stranger would encounter it.
+
+        > **Reminder:** Assign this issue to the plugin's milestone and add the `plugin/<name>` label.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the milestone name."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: document-issue
+    attributes:
+      label: Document issue
+      description: "Link to the completed Document stage issue (e.g., #58)."
+      placeholder: "#58"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: entry-criteria
+    attributes:
+      label: Entry criteria
+      description: Confirm before starting this stage.
+      options:
+        - label: Document stage is complete and issue is closed
+          required: true
+        - label: All stage issues (Concept through Document) are closed
+          required: true
+
+  - type: checkboxes
+    id: shipping-checklist
+    attributes:
+      label: Shipping checklist
+      description: Complete all items before closing this issue.
+      options:
+        - label: "Plugin entry added to `.claude-plugin/marketplace.json` (name, source, description)"
+        - label: "Plugin directory exists at the path referenced by `pluginRoot`"
+        - label: "All primitives are installable and functional from a clean state"
+        - label: "Cowork compatibility noted in README"
+        - label: "Fresh install verified (not from development environment)"
+        - label: "All stage issues (Concept through Ship) closed"
+        - label: "Milestone closed"
+        - label: "**Code Actual has given final approval**"
+
+  - type: textarea
+    id: fresh-install-notes
+    attributes:
+      label: Fresh install notes
+      description: "Document the fresh install verification. What was tested, on what environment, any issues found?"
+      placeholder: |
+        - Environment: ...
+        - Installed via: ...
+        - Tested: all commands, agents, skills
+        - Issues found: none / ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: All must be checked before closing this issue and the milestone.
+      options:
+        - label: Shipping checklist is complete
+        - label: Fresh install verified and documented
+        - label: Plugin is installable and discoverable in the Grand Bazaar
+        - label: Marketplace manifest updated
+        - label: "**Code Actual has given final approval**"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Code Actual checkpoint:** Final approval before the plugin reaches the shelves.
+
+        After closing this issue, close the milestone. Post-ship maintenance issues are free-standing — labeled `stage/maintenance` + `plugin/<name>` — and don't belong to this milestone.

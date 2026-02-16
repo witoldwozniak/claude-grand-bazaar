@@ -1,0 +1,46 @@
+name: Feature Request
+description: Suggest an enhancement to an existing plugin or the marketplace.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Focus on the problem you're facing — we'll figure out the shape of the solution together.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or need
+      description: "What problem does this solve? Why does it matter? The \"why\" is more important than the \"what.\""
+      placeholder: "When working on X, I keep running into... and there's no good way to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How do you think this should work? It's fine to be rough here.
+      placeholder: "A skill that... / A hook that triggers when... / The agent could..."
+    validations:
+      required: false
+
+  - type: input
+    id: scope
+    attributes:
+      label: Plugin scope
+      description: "Which plugin does this affect? Use the plugin name, \"marketplace\" for repo-level, or \"new\" if this needs a new plugin."
+      placeholder: "plugin-authoring"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: How would you verify this works? A few concrete conditions.
+      placeholder: |
+        - [ ] When X happens, Y should...
+        - [ ] The output should include...
+    validations:
+      required: false

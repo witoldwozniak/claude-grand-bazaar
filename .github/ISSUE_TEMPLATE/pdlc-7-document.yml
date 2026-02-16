@@ -1,0 +1,66 @@
+name: "PDLC Stage 7: Document"
+description: "Write for the stranger. Documentation follows the single-source-of-truth principle."
+title: "[document] "
+labels: ["stage/document"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **PDLC Stage 7 — Document.** Write for the stranger. A stranger should understand what the plugin does, why it exists, and how to use it without asking anyone.
+
+        Documentation follows the single-source-of-truth principle (ADR-0014). The README is hand-written. Primitive metadata lives in structured files.
+
+        > **Reminder:** Assign this issue to the plugin's milestone and add the `plugin/<name>` label.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the milestone name."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: review-issue
+    attributes:
+      label: Review issue
+      description: "Link to the completed Review stage issue (e.g., #57)."
+      placeholder: "#57"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: entry-criteria
+    attributes:
+      label: Entry criteria
+      description: Confirm before starting this stage.
+      options:
+        - label: Review stage is complete with "Pass" outcome
+          required: true
+        - label: Review issue is closed
+          required: true
+
+  - type: checkboxes
+    id: documentation-checklist
+    attributes:
+      label: Documentation checklist
+      description: Track completion of all documentation artifacts.
+      options:
+        - label: "**README.md** — What the plugin does, its opinion, how to install, how to use (hand-written)"
+        - label: "**SKILL.md frontmatter** — name, description, author, license for each skill"
+        - label: "**Agent frontmatter** — name, description, model, tools, skills for each agent"
+        - label: "**Hook configs** — trigger, script, description for each hook (if applicable)"
+        - label: "**Command files** — complete and correctly named (if applicable)"
+        - label: "**plugin.json** — name, version, description, author, license"
+        - label: "**Cowork compatibility** noted in README (if applicable)"
+
+  - type: checkboxes
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: All must be checked before closing this issue and moving to Ship.
+      options:
+        - label: README is present and passes the stranger test
+        - label: All primitive metadata is complete in structured files
+        - label: Documentation checklist items are complete (or marked N/A)

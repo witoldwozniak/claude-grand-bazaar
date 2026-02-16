@@ -1,0 +1,108 @@
+name: "PDLC Stage 1: Concept"
+description: "Define the plugin's scope and ambition. First stage of the Plugin Development Life Cycle."
+title: "[concept] "
+labels: ["stage/concept"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **PDLC Stage 1 — Concept.** Define what this plugin covers, what it leaves out, and what success looks like.
+
+        Before opening this issue, ensure a Plugin Proposal has been accepted and a milestone created.
+
+        > **Reminder:** Assign this issue to the plugin's milestone and add the `plugin/<name>` label.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the milestone name and future directory under `plugins/`."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: proposal-issue
+    attributes:
+      label: Accepted proposal
+      description: "Link to the accepted Plugin Proposal issue (e.g., #42)."
+      placeholder: "#42"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: entry-criteria
+    attributes:
+      label: Entry criteria
+      description: Confirm before starting this stage.
+      options:
+        - label: Plugin Proposal has been accepted
+          required: true
+        - label: GitHub Milestone has been created
+          required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: "What specific ground does this plugin cover — and what does it deliberately leave out?"
+      placeholder: |
+        **In scope:**
+        - ...
+
+        **Out of scope:**
+        - ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success criteria
+      description: "What would success look like when this plugin is on the shelves?"
+      placeholder: |
+        - A stranger can install this plugin and immediately...
+        - The plugin produces meaningfully better output when...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: primitives
+    attributes:
+      label: Likely primitives
+      description: Which building blocks do you expect this plugin to use?
+      options:
+        - label: Skills (knowledge and reasoning)
+        - label: Hooks (automated guardrails)
+        - label: Agents (focused craftsmen)
+        - label: MCP servers (external connections)
+        - label: LSP servers (real-time code intelligence)
+        - label: Commands (user-invoked entry points)
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: "Core plugins compose with other core plugins. Standalone plugins are self-contained."
+      options:
+        - Core plugin
+        - Standalone plugin
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: All must be checked before closing this issue and moving to Research.
+      options:
+        - label: Scope is clearly defined (what's in and what's out)
+        - label: Success criteria are documented
+        - label: Likely primitives are identified
+        - label: "**Code Actual has approved the concept**"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Code Actual checkpoint:** The concept must be approved before Research begins.

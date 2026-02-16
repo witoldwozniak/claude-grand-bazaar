@@ -1,0 +1,70 @@
+name: Plugin Proposal
+description: Propose a new plugin for the Grand Bazaar. This is the entry point to the Plugin Development Life Cycle.
+labels: ["plugin-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A plugin proposal starts the PDLC. Not every proposal becomes a plugin — we evaluate fit, scope, and whether the domain warrants a dedicated plugin or a simpler approach.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. This becomes the directory name under `plugins/` and the scope in commit messages."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: "Core plugins compose with other core plugins. Standalone plugins are self-contained."
+      options:
+        - Core plugin
+        - Standalone plugin
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-space
+    attributes:
+      label: Problem space
+      description: What domain does this plugin cover? What problems exist today that this plugin would address?
+      placeholder: "Documentation authoring for software projects lacks... Current tools don't..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: primitives
+    attributes:
+      label: Target primitives
+      description: Which building blocks do you expect this plugin to use?
+      options:
+        - label: Skills (knowledge and reasoning)
+        - label: Hooks (automated guardrails)
+        - label: Agents (focused craftsmen)
+        - label: MCP servers (external connections)
+        - label: LSP servers (real-time code intelligence)
+
+  - type: textarea
+    id: research
+    attributes:
+      label: Initial research pointers
+      description: Known papers, tools, prior art, or community resources that could inform this plugin.
+      placeholder: |
+        - Paper: "Title" (Author, Year)
+        - Tool: https://...
+        - Community resource: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Why this plugin should exist
+      description: "The Bazaar is opinionated: we'd rather have five excellent plugins than twenty mediocre ones. Why is this domain complex enough to warrant a plugin rather than a CLAUDE.md snippet?"
+    validations:
+      required: true

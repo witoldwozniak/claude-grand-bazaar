@@ -1,0 +1,45 @@
+name: Maintenance
+description: Dependency updates, cleanup, security patches, CI/CD, or performance work.
+labels: ["maintenance"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - Dependency update
+        - Security patch
+        - Code cleanup
+        - Performance
+        - CI/CD
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs maintaining and why?
+      placeholder: "Bun has released v1.2.x which includes... / The CI pipeline takes X minutes because..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      options:
+        - Routine
+        - Soon
+        - Urgent
+    validations:
+      required: true
+
+  - type: input
+    id: affected
+    attributes:
+      label: Affected plugins or areas
+      description: "Comma-separated plugin names, or repo-level areas like \"ci\", \"docs-site\", \"marketplace\"."
+      placeholder: "plugin-authoring, marketplace"
+    validations:
+      required: false

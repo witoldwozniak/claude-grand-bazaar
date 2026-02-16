@@ -1,0 +1,65 @@
+name: Research Request
+description: Request a spike or domain research to resolve uncertainty before committing to an approach.
+labels: ["research"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Research requests are time-boxed investigations. The output is knowledge, not production code.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+      description: What specific question or area needs investigation? Be as focused as possible.
+      placeholder: "How does Claude Code handle hook conflicts when multiple plugins define PreToolUse hooks for the same tool?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and motivation
+      description: Why does this need investigation now? What decision is blocked by this uncertainty?
+      placeholder: "We need to understand this before designing the hook composition model for core plugins."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: timebox
+    attributes:
+      label: Time box
+      description: Suggested maximum time investment. Code Actual approves the final scope.
+      options:
+        - 2 hours
+        - 4 hours
+        - 1 day
+        - 2 days
+        - 1 week
+    validations:
+      required: true
+
+  - type: dropdown
+    id: output
+    attributes:
+      label: Expected output
+      description: What artifact should this research produce?
+      options:
+        - ADR (Architecture Decision Record)
+        - Research notes
+        - Prototype (throwaway)
+        - Recommendation to Code Actual
+    validations:
+      required: true
+
+  - type: textarea
+    id: starting-points
+    attributes:
+      label: Known starting points
+      description: Links to papers, documentation, tools, or community discussions that could help.
+      placeholder: |
+        - https://...
+        - Paper: ...
+        - Claude Code docs: ...
+    validations:
+      required: false

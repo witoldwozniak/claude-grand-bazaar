@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions
+    url: https://github.com/witoldwozniak/claude-grand-bazaar/discussions
+    about: Questions, ideas, or feedback that don't fit into the templates above.

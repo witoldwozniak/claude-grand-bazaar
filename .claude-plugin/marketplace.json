@@ -1,0 +1,19 @@
+{
+  "name": "claude-grand-bazaar",
+  "owner": {
+    "name": "witoldwozniak",
+    "email": "witold@witoldwozniak.dev"
+  },
+  "metadata": {
+    "version": "0.1.0",
+    "description": "Claude Grand Bazaar is a plugin marketplace for Claude Code. It provides opinionated, research-grounded plugins that extend what Claude can do — how it reasons, what it enforces, where it focuses attention, what it sees in living code, and what systems it reaches.",
+    "pluginRoot": "./plugins/"
+  },
+  "plugins": [
+    {
+      "name": "plugin-authoring",
+      "source": "plugin-authoring",
+      "description": "Tools for building Claude Code extensions — agent-creator, plugin-builder, plugin-validator, hook-author, conversation-analyst, skill-manager, and skills for authoring agents, skills, and LLM-optimized prose."
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+name: "PDLC Stage 5: Prove"
+description: "Test the plugin in real work. Not synthetic tests — actual projects with actual problems."
+title: "[prove] "
+labels: ["stage/prove"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **PDLC Stage 5 — Prove.** Use the plugin in real work. This is where the opinions get tested.
+
+        There's no fixed timeline. It's done when Code Actual has seen enough variety to trust the opinions. Minimum bar: the plugin must survive contact with at least one real project that the plugin author didn't design it for.
+
+        > **Reminder:** Assign this issue to the plugin's milestone and add the `plugin/<name>` label.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the milestone name."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: build-issue
+    attributes:
+      label: Build issue
+      description: "Link to the completed Build stage issue (e.g., #50)."
+      placeholder: "#50"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: entry-criteria
+    attributes:
+      label: Entry criteria
+      description: Confirm before starting this stage.
+      options:
+        - label: Build stage is complete and issue is closed
+          required: true
+        - label: Plugin can be installed and used from a clean state
+          required: true
+        - label: Code Actual has approved a proving approach
+          required: true
+
+  - type: textarea
+    id: proving-plan
+    attributes:
+      label: Proving plan
+      description: "Which projects will be used? What kinds of work will test the plugin's opinions?"
+      placeholder: |
+        - Project A (description) — tests the plugin's stance on X
+        - Project B (description) — tests edge cases around Y
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence-log
+    attributes:
+      label: Evidence log
+      description: "Update this as proving sessions happen. Record what worked, what surprised, and specific examples."
+      value: |
+        <!-- Update this log after each proving session -->
+
+        ### Session template
+        - **Project:** (name/description)
+        - **Date:** YYYY-MM-DD
+        - **What worked as designed:**
+        - **What surprised (positive or negative):**
+        - **What had to be worked around:**
+        - **Specific examples of meaningfully better output:**
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: exit-criteria
+    attributes:
+      label: Exit criteria
+      description: All must be checked before closing this issue and moving to Review.
+      options:
+        - label: Plugin tested in at least one project the author didn't design it for
+        - label: Evidence log documents specific examples of meaningfully better output
+        - label: Plugin opinion held up in practice (or returned to Design if not)
+        - label: "**Code Actual is satisfied the plugin has been tested against sufficient variety**"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **Code Actual checkpoint:** Sufficient evidence to proceed to Review.
+
+        If the opinion doesn't hold up → return to Design. If the opinion is sound but the implementation is wrong → return to Build.
