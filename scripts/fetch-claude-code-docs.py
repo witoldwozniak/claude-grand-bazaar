@@ -61,7 +61,7 @@ def main():
     parser.add_argument(
         "-o", "--output",
         type=Path,
-        default=Path("claude-code-docs"),
+        default=Path("docs/claude-code-docs"),
         help="Output directory (default: ./claude-code-docs)",
     )
     parser.add_argument(
