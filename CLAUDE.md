@@ -4,29 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Claude Grand Bazaar is a curated plugin marketplace for Claude Code. It ships opinionated, research-grounded plugins built from six primitives: **Skills** (knowledge/reasoning), **Hooks** (automated guardrails), **Agents** (focused craftsmen), **MCP servers** (external connections), **LSP servers** (real-time code intelligence), and **Commands** (user-invoked entry points). The marketplace is at v0.1.0. The first plugin — `plugin-authoring` (v0.3.0) — is implemented and serves as the template for future plugins.
+Claude Grand Bazaar is a curated plugin marketplace for Claude Code. It ships opinionated, research-grounded plugins built from five primitives: **Skills** (knowledge/reasoning), **Hooks** (automated guardrails), **Subagents** (focused specialists), **Connectors** (external connections), and **LSP servers** (real-time code intelligence). The marketplace is at v0.1.0. The first plugin — `plugin-authoring` (v0.3.0) — is implemented and serves as the template for future plugins.
 
-## Repository Structure
-
-- `README.md` — Public-facing philosophy and quality standards
-- `docs/` — Documentation (Markdown with YAML frontmatter)
-  - `doctrine.md` — Operational principles (the project's constitution)
-  - `primitives/` — Guidelines and knowledge for the six primitives (Skills, Hooks, Agents, MCP, LSP, Commands)
-  - `development/` — Development process and planning
-    - `git.md` — Git conventions: branching, Conventional Commits, and merge strategy
-    - `versioning.md` — Semantic Versioning strategy for plugins and marketplace
-    - `pdlc.md` — Plugin Development Life Cycle: 9 stages from Concept to Tend
-    - `research.md` — Research guidelines, file conventions, and Definition of Done
-  - `decisions/` — Architecture Decision Records (MADR format, sequential numbering)
-    - `_GUIDE.md` — How and when to write Architecture Decision Records
-  - `research/` — Structured research documents (one file per question, YAML frontmatter, indexed by `scripts/index-research.py`)
-  - `notes-to-process/` — Unstructured notes pending conversion to proper research documents
-    - `todo.md` — Development backlog and brainstormed plugin ideas
-- `scripts/` — Development and research utilities
-- `.claude-plugin/marketplace.json` — Plugin registry metadata; defines plugin names, sources, and descriptions
-- `.claude-plugin/.github/` — PR and Issue templates
-- `plugins/` — Plugin implementations, each in its own subdirectory matching the `source` field in `marketplace.json`
-  - `plugin-authoring/` — Tools for building Claude Code extensions (agents, skills, scripts)
+<!-- NOTE: As this file grows, extract domain-specific guidance into Skills (plugin-authoring or new plugins). CLAUDE.md should stay a compact bootstrap — enough for Claude to orient, with Skills carrying the depth. -->
 
 ## Working Style
 
@@ -34,7 +14,11 @@ Claude Grand Bazaar is a curated plugin marketplace for Claude Code. It ships op
 
 **Code Actual** is the human decision-maker. Major decisions — scope, approach, shipping — require explicit human approval.
 
-**TODO markers in markdown:** `<!-- TODO(human): description -->` and `<!-- TODO(claude): description -->`. HTML comments — greppable in source, invisible in rendered output.
+**Think critically.** Do not follow user requests blindly. If a request seems likely to introduce bugs, break conventions, or move in a questionable direction — say so. Propose alternatives. The goal is the best outcome, not unquestioning compliance.
+
+**Prevent overengineering.** Solve the problem at hand, not hypothetical future problems. Avoid abstractions, configuration layers, or flexibility that nobody asked for. When in doubt, write the simpler version.
+
+**TODO markers in markdown:** `<!-- TODO(github-username): description -->` and `<!-- TODO(claude): description -->`. HTML comments — greppable in source, invisible in rendered output.
 
 ## Build and Development
 
@@ -59,45 +43,11 @@ python scripts/validate_links.py           # internal markdown links resolve
 
 **Index freshness:** CI rejects PRs where index files are stale. After adding or editing docs in `research/` or `decisions/`, run the index scripts and commit the updated `_INDEX.md` files.
 
-**Platform docs:** `python scripts/fetch-claude-code-docs.py` fetches Claude Code documentation from `code.claude.com` for local reference. Use `--list` to see available pages, `--only` to fetch a subset. Output is gitignored.
-
-## Key Architectural Concepts
-
-**Two categories of plugins:**
-
-- **Core plugins** (main hall) — Software engineering disciplines (authoring, docs, testing, PM, frontend, backend, DB). Designed to compose with each other.
-- **Standalone plugins** (side alleys) — Domain-specific tools (e.g., Minecraft modding, newsletter management). Self-contained, no obligation to integrate with core.
-
-**Plugin composition model:** Skills for reasoning, Hooks for enforcement, Agents for focus, MCP servers for connection, LSP servers for perception, Commands for invocation. A single plugin may combine multiple primitives.
-
-**Agent roles are functional, not theatrical.** A role earns its existence by producing meaningfully different output than an unscoped agent would. Agent teams are orchestration (lead delegates to specialists), not simulation.
-
-## Plugin Anatomy
-
-Each plugin lives at `plugins/<name>/` and follows this structure:
-
-```
-plugins/<name>/
-├── .claude-plugin/
-│   └── plugin.json       # Manifest: name, version, description, author, license
-├── README.md
-├── commands/             # Slash commands (markdown, filename = command name)
-│   └── <command-name>.md
-├── agents/               # Agent definitions (markdown with YAML frontmatter)
-│   └── <agent-name>.md
-└── skills/               # Skill packages
-    └── <skill-name>/
-        ├── SKILL.md      # Skill definition (markdown with YAML frontmatter)
-        ├── LICENSE.txt
-        ├── references/   # Supporting knowledge documents
-        └── scripts/      # Python utilities for the skill
-```
+**Platform docs:** `python scripts/fetch-claude-code-docs.py` fetches Claude Code documentation from `code.claude.com` for local reference. Use `--list` to see available pages, `--only` to fetch a subset. Output is gitignored. Fetched docs are at `docs/claude-code-docs`.
 
 **Agent frontmatter fields:** `name`, `description` (with `<example>` trigger blocks), `model` (sonnet/opus/haiku/inherit), `color`, `tools` (comma-separated), `skills` (references to skill names). Optional: `hooks`, `mcpServers`, `maxTurns`.
 
 **Skill SKILL.md frontmatter:** `name`, `description` (including trigger phrases), `author`, `license`. Optional: `disable-model-invocation`, `user-invocable`, `allowed-tools`, `context`, `agent`, `hooks`.
-
-**Command files:** Markdown files in `commands/` where the filename becomes the slash command name. Supports `$ARGUMENTS` and positional `$1`, `$2` variables.
 
 **plugin.json manifest:**
 
@@ -115,36 +65,26 @@ plugins/<name>/
 
 ## Git Conventions
 
-**Branches:** `<type>/<scope>/<slug>` — scope is the plugin name; drop it for cross-cutting changes. See `docs/development/git.md` for full conventions.
-
-```
-feat/plugin-authoring/skill-templates
-fix/auto-format/multiline-regex
-chore/normalize-line-endings
-```
-
-**Commits:** `<type>(<scope>): <description>` — scope is the plugin name or repo-level topic; omit when truly cross-cutting. See `docs/development/git.md` for full conventions.
-
-Types: `feat` · `fix` · `docs` · `chore` · `refactor` · `test` · `style` · `ci`
-
-**Pull Requests:** One issue = one PR · Link issue · Summarize changes · CI must pass · Code Reviewer approves · Squash merge
+See [docs/development/GIT.md](docs/development/GIT.md) for full conventions: branching (`<type>/<scope>/<slug>`), Conventional Commits (`<type>(<scope>): <description>`), and squash-merge PRs.
 
 ## Terminology
 
 Capitalize GitHub constructs: **Issue**, **Milestone**, **Sub-Issue**. Use "problem" or "concern" instead of lowercase "issue" to avoid ambiguity. "bug" = the defect itself; "Bug Report" = the Issue tracking it. "task" and "work item" are safe generic terms for untracked work.
 
+Also capitalize Claude Code concepts: Skills, Agent Skills, Subagents, Hooks, Connectors (MCP Servers), LSP Servers, Commands, Slash Commands
+
 ## Code Standards
 
-**Code:** TDD default (document opt-outs) · Clarity over cleverness · Explicit error handling · Comment "why" not "what"
+**Code:** Clarity over cleverness · Explicit error handling · Comment "why" not "what"
 
-**Tests:** Unit tests = Software Engineer · Integration/e2e = Test Engineer · No flaky tests · Test behavior, not implementation
+**Tests:** No flaky tests · Test behavior, not implementation
 
 **Security:** No secrets in code · Validate external input · Fail secure
 
 ## Standards for Shipping
 
-Every plugin must be: research-grounded (traceable to vetted sources), well-documented (stranger-readable), composable (no conflicts with other plugins), opinionated (takes a clear position), and tested in real work.
+Every plugin must be: research-grounded (traceable to vetted sources), well-documented (stranger-readable), composable (no conflicts with other plugins), opinionated (takes a clear position), and tested in real work. See [Doctrine](docs/development/doctrine.md).
 
 ## Target Platform
 
-Primary target is Claude Code (all six primitives). Cowork is a secondary target — it shares the plugin format but supports only four of the six: Skills, Agents, MCP servers, and Commands (no Hooks, no LSP). Plugins without hook or LSP dependencies work on both platforms. Design decisions are never compromised for Cowork compatibility.
+Primary target is Claude Code (all five primitives). Cowork is a secondary target — it shares the plugin format but supports three of the five: Skills, Subagents, and Connectors. Plugins without Hook or LSP dependencies work on both platforms. Design decisions are never compromised for Cowork compatibility. See [Doctrine](docs/development/doctrine.md).

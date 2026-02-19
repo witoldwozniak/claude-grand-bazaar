@@ -2,11 +2,11 @@
 
 A plugin marketplace for Claude Code and Cowork.
 
-Opinionated, research-grounded plugins built from six primitives: **Skills** (knowledge and reasoning), **Hooks** (automated guardrails), **Agents** (focused specialists), **MCP servers** (external connections), **LSP servers** (real-time code intelligence), and **Commands** (user-invoked entry points).
+Opinionated, research-grounded plugins built from five primitives: **Skills** (knowledge and reasoning), **Hooks** (automated guardrails), **Subagents** (focused specialists), **Connectors** (external connections), and **LSP servers** (real-time code intelligence).
 
 ## Philosophy
 
-Quality before quantity. We'd rather have five excellent plugins than twenty mediocre ones. Every plugin is research-grounded, well-documented, composable, opinionated, and tested in real work. See [Doctrine](docs/doctrine.md) for the full principles.
+Quality before quantity. We'd rather have five excellent plugins than twenty mediocre ones. Every plugin is research-grounded, well-documented, composable, opinionated, and tested in real work. See [Doctrine](docs/development/doctrine.md) for the full principles.
 
 ## Status
 
