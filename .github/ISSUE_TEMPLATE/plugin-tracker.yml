@@ -1,0 +1,63 @@
+name: Plugin Tracker
+description: Track a plugin's journey through the PDLC. Created when a Plugin Proposal is accepted.
+labels: ["plugin-tracker"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue tracks the plugin from Concept to Ship. Link the originating Plugin Proposal and any Research Request issues.
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: "Kebab-case. Must match the name from the accepted Plugin Proposal."
+      placeholder: "documentation-authoring"
+    validations:
+      required: true
+
+  - type: input
+    id: proposal
+    attributes:
+      label: Plugin Proposal
+      description: "Link to the accepted Plugin Proposal issue."
+      placeholder: "#42"
+    validations:
+      required: true
+
+  - type: textarea
+    id: concept
+    attributes:
+      label: Concept
+      description: "What does this plugin cover? What does it leave out? What would success look like? What are the likely primitives?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Design notes
+      description: "The plugin's point of view, chosen primitives, composition concerns, scoping decisions. Fill in after Research."
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence log
+      description: "Sessions, what worked, what surprised, what was worked around, examples of meaningfully better output. Fill in during Prove."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: stages
+    attributes:
+      label: Progress
+      description: "Track completion of each PDLC stage."
+      options:
+        - label: "Concept — scope and ambition defined"
+        - label: "Research — domain studied, Research Request issue linked"
+        - label: "Design — opinionated choices made, primitives and boundaries decided"
+        - label: "Build — plugin implemented, documented, quality bar checked"
+        - label: "Prove — tested in real work, evidence log filled"
+        - label: "Ship — marketplace entry added, fresh install verified, README passes stranger test"
