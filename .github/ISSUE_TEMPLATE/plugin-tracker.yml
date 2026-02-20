@@ -1,6 +1,5 @@
 name: Plugin Tracker
 description: Track a plugin's journey through the PDLC. Created when a Plugin Proposal is accepted.
-labels: ["plugin-tracker"]
 body:
   - type: markdown
     attributes:
