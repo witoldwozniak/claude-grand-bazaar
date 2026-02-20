@@ -1,8 +1,6 @@
 ---
 title: ADR Template
-description: "MADR template for Architecture Decision Records."
-navigation: false
-status: draft
+status: draft | proposed | accepted | superseded | deprecated
 date: YYYY-MM-DD
 decision-makers:
   - name

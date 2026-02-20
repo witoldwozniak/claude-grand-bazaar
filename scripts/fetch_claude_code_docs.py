@@ -6,11 +6,11 @@ Downloads markdown versions of all (or selected) documentation pages
 from code.claude.com/docs into a local directory.
 
 Usage:
-    python scripts/fetch-claude-code-docs.py                    # fetch all docs
-    python scripts/fetch-claude-code-docs.py -o ./docs          # custom output dir
-    python scripts/fetch-claude-code-docs.py --only hooks skills plugins  # subset
-    python scripts/fetch-claude-code-docs.py --list              # show available pages
-    python scripts/fetch-claude-code-docs.py --delay 0.5         # gentle rate limiting
+    python scripts/fetch_claude_code_docs.py                    # fetch all docs
+    python scripts/fetch_claude_code_docs.py -o ./docs          # custom output dir
+    python scripts/fetch_claude_code_docs.py --only hooks skills plugins  # subset
+    python scripts/fetch_claude_code_docs.py --list              # show available pages
+    python scripts/fetch_claude_code_docs.py --delay 0.5         # gentle rate limiting
 """
 
 import argparse
@@ -62,7 +62,7 @@ def main():
         "-o", "--output",
         type=Path,
         default=Path("docs/claude-code-docs"),
-        help="Output directory (default: ./claude-code-docs)",
+        help="Output directory (default: docs/claude-code-docs)",
     )
     parser.add_argument(
         "--only",

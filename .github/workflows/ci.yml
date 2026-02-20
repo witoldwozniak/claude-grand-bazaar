@@ -18,21 +18,12 @@ jobs:
 
       - name: Index freshness check
         run: |
-          python scripts/index-research.py
-          python scripts/index-decisions.py
+          python scripts/index_research.py
+          python scripts/index_decisions.py
           git diff --exit-code || {
             echo "::error::Index files are out of date. Run the index scripts and commit the result."
             exit 1
           }
-
-      - name: JSON manifest validation
-        run: |
-          echo "Validating marketplace.json..."
-          python -m json.tool .claude-plugin/marketplace.json > /dev/null
-          for f in $(find plugins -name 'plugin.json' -path '*/.claude-plugin/*'); do
-            echo "Validating $f..."
-            python -m json.tool "$f" > /dev/null
-          done
 
       - name: Manifest validation
         run: python scripts/validate_manifests.py

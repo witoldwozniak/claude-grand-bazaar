@@ -11,6 +11,15 @@ We use the MADR format and call these "ADRs" by convention, but not every decisi
 
 [MADR](https://adr.github.io/madr/) with YAML front matter. Template at `docs/decisions/_TEMPLATE.md`.
 
+### Front matter fields
+
+| Field             | Required | Description                                                              |
+| ----------------- | -------- | ------------------------------------------------------------------------ |
+| `title`           | yes      | Short decision title                                                     |
+| `status`          | yes      | `draft`, `proposed`, `accepted`, `superseded`, or `deprecated`           |
+| `date`            | yes      | Date decision was made (YYYY-MM-DD)                                      |
+| `decision-makers` | yes      | List of GitHub/git usernames who made or approved the decision           |
+
 ## Location
 
 `docs/decisions/`

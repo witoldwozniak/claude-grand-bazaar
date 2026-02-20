@@ -49,14 +49,14 @@ Breaking changes are identifiable without judgment calls:
 
 ### Soft Contracts
 
-**Skills and agents** have interfaces made of prose consumed by an LLM. There is no type checker, no protocol negotiation, no mechanical way to detect incompatibility. The LLM adapts to changes gracefully, which means nothing breaks loudly.
+**Skills and Subagents** have interfaces made of prose consumed by an LLM. There is no type checker, no protocol negotiation, no mechanical way to detect incompatibility. The LLM adapts to changes gracefully, which means nothing breaks loudly.
 
 SemVer here communicates intent to humans, not compatibility to tooling:
 
 | Primitive | MAJOR (scope/intent shift)                                                    | MINOR (additive)                   | PATCH (fix)                       |
 | --------- | ----------------------------------------------------------------------------- | ---------------------------------- | --------------------------------- |
 | Skill     | Fundamental approach changed, scope redefined                                 | New sections, broader coverage     | Clarified wording, fixed examples |
-| Agent     | Role scope changed, tools removed from allowlist, decision boundaries shifted | New tools added, expanded guidance | Prompt refinement, typo fix       |
+| Subagent  | Role scope changed, tools removed from allowlist, decision boundaries shifted | New tools added, expanded guidance | Prompt refinement, typo fix       |
 
 Because soft-contract breakage is a judgment call, lean toward MINOR when uncertain. Reserve MAJOR for changes where a user who built workflows around the previous version would be surprised by the new behavior.
 

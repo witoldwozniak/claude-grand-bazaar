@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Sync GitHub labels for the Grand Bazaar.
 
-Creates and updates labels for PDLC stages, general-purpose categories,
-and plugin-specific labels derived from marketplace.json.
+Creates and updates project-specific labels and plugin association labels
+derived from marketplace.json. Does not touch GitHub's default labels.
 
 Idempotent: creates missing labels, updates drifted color/description,
 never deletes. Requires `gh` CLI authenticated.
@@ -21,26 +21,12 @@ from pathlib import Path
 
 MARKETPLACE_PATH = Path(".claude-plugin/marketplace.json")
 
-# Static labels: (name, description, color without #)
+# Project-specific labels only — GitHub's default labels are fine as-is.
+# (name, description, color without #)
 STATIC_LABELS: list[tuple[str, str, str]] = [
-    # PDLC stage labels — light-to-dark purple gradient
-    ("stage/concept", "PDLC Stage 1: Define scope and ambition", "e8d5f5"),
-    ("stage/research", "PDLC Stage 2: Study the domain", "d4b8e8"),
-    ("stage/design", "PDLC Stage 3: Make opinionated choices", "c09bdb"),
-    ("stage/build", "PDLC Stage 4: Implement the plugin", "ac7ece"),
-    ("stage/prove", "PDLC Stage 5: Test in real work", "9861c1"),
-    ("stage/review", "PDLC Stage 6: Structured self-review", "8444b4"),
-    ("stage/document", "PDLC Stage 7: Write for the stranger", "7027a7"),
-    ("stage/ship", "PDLC Stage 8: Put it on the shelves", "5c0a9a"),
-    ("stage/maintenance", "PDLC Stage 9: Ongoing post-ship care", "480a8d"),
-    # General-purpose labels
     ("plugin-proposal", "A new plugin proposed for the Bazaar", "0e8a16"),
-    ("bug", "Something is broken", "d73a4a"),
-    ("enhancement", "New feature or improvement", "a2eeef"),
-    ("maintenance", "Dependency updates, cleanup, CI/CD", "f9d0c4"),
-    ("research", "Standalone research spike", "1d76db"),
-    ("blocked", "Waiting on external dependency or decision", "b60205"),
     ("needs-code-actual", "Requires human decision before proceeding", "ff7619"),
+    ("wont-do", "Considered and deliberately rejected", "ffffff"),
 ]
 
 PLUGIN_LABEL_COLOR = "fbca04"
@@ -193,7 +179,7 @@ def main() -> None:
     print(f"  Found {len(existing)} existing label(s).\n")
 
     # Sync static labels
-    print("Syncing static labels...")
+    print("Syncing project labels...")
     for name, description, color in STATIC_LABELS:
         sync_label(name, description, color, existing, args.dry_run)
 

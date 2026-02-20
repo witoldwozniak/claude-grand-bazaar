@@ -110,21 +110,19 @@ class TestValidateResearch:
             "question": "How?",
             "status": "active",
             "started": "2026-02-10",
-            "tags": ["hooks"],
         }
         errors = mod.validate_research(self._path(), fields)
         assert errors == []
 
     def test_missing_required_fields(self):
         errors = mod.validate_research(self._path(), {})
-        assert len(errors) == 4
+        assert len(errors) == 3
 
     def test_invalid_status(self):
         fields = {
             "question": "Q",
             "status": "invalid",
             "started": "2026-02-10",
-            "tags": ["x"],
         }
         errors = mod.validate_research(self._path(), fields)
         assert any("invalid status" in e for e in errors)
@@ -135,7 +133,6 @@ class TestValidateResearch:
                 "question": "Q",
                 "status": status,
                 "started": "2026-02-10",
-                "tags": ["x"],
             }
             errors = mod.validate_research(self._path(), fields)
             assert not any("invalid status" in e for e in errors)
@@ -145,43 +142,40 @@ class TestValidateResearch:
             "question": "Q",
             "status": "active",
             "started": "February",
-            "tags": ["x"],
         }
         errors = mod.validate_research(self._path(), fields)
         assert any("invalid started date" in e for e in errors)
-
-    def test_missing_tags(self):
-        fields = {"question": "Q", "status": "active", "started": "2026-02-10"}
-        errors = mod.validate_research(self._path(), fields)
-        assert any("'tags'" in e for e in errors)
 
 
 class TestValidateSkill:
     def _path(self) -> Path:
         return Path("plugins/test/skills/my-skill/SKILL.md")
 
+    def _valid_fields(self, **overrides):
+        base = {"name": "my-skill", "description": "A test skill", "author": "test", "license": "MIT"}
+        base.update(overrides)
+        return base
+
     def test_valid_skill(self):
-        fields = {"name": "my-skill", "description": "A test skill"}
-        errors = mod.validate_skill(self._path(), fields)
+        errors = mod.validate_skill(self._path(), self._valid_fields())
         assert errors == []
 
     def test_missing_required_fields(self):
         errors = mod.validate_skill(self._path(), {})
-        assert len(errors) == 2
+        assert len(errors) == 4
 
     def test_non_kebab_name(self):
-        fields = {"name": "MySkill", "description": "A test skill"}
-        errors = mod.validate_skill(self._path(), fields)
+        errors = mod.validate_skill(self._path(), self._valid_fields(name="MySkill"))
         assert any("not kebab-case" in e for e in errors)
 
     def test_kebab_case_variants(self):
         valid = ["my-skill", "a", "skill-v2", "a-b-c"]
         invalid = ["MySkill", "my_skill", "MY-SKILL", "-leading", "trailing-", "1-starts-with-digit"]
         for name in valid:
-            errors = mod.validate_skill(self._path(), {"name": name, "description": "x"})
+            errors = mod.validate_skill(self._path(), self._valid_fields(name=name))
             assert not any("kebab" in e for e in errors), f"{name} should be valid"
         for name in invalid:
-            errors = mod.validate_skill(self._path(), {"name": name, "description": "x"})
+            errors = mod.validate_skill(self._path(), self._valid_fields(name=name))
             assert any("kebab" in e for e in errors), f"{name} should be invalid"
 
 
@@ -189,27 +183,30 @@ class TestValidateAgent:
     def _path(self) -> Path:
         return Path("plugins/test/agents/my-agent.md")
 
+    def _valid_fields(self, **overrides):
+        base = {"name": "my-agent", "description": "A test agent", "model": "sonnet", "color": "#blue", "tools": "Read,Write"}
+        base.update(overrides)
+        return base
+
     def test_valid_agent(self):
-        fields = {"name": "my-agent", "description": "A test agent"}
-        errors = mod.validate_agent(self._path(), fields)
+        errors = mod.validate_agent(self._path(), self._valid_fields())
         assert errors == []
 
     def test_valid_with_model(self):
         for model in mod.AGENT_MODELS:
-            fields = {"name": "test", "description": "x", "model": model}
-            errors = mod.validate_agent(self._path(), fields)
+            errors = mod.validate_agent(self._path(), self._valid_fields(model=model))
             assert errors == [], f"model '{model}' should be valid"
 
     def test_invalid_model(self):
-        fields = {"name": "test", "description": "x", "model": "gpt-4"}
-        errors = mod.validate_agent(self._path(), fields)
+        errors = mod.validate_agent(self._path(), self._valid_fields(model="gpt-4"))
         assert any("invalid model" in e for e in errors)
 
     def test_missing_required_fields(self):
         errors = mod.validate_agent(self._path(), {})
-        assert len(errors) == 2
+        assert len(errors) == 5
 
-    def test_no_model_is_fine(self):
-        fields = {"name": "test", "description": "x"}
+    def test_missing_model(self):
+        fields = self._valid_fields()
+        del fields["model"]
         errors = mod.validate_agent(self._path(), fields)
-        assert errors == []
+        assert any("'model'" in e for e in errors)

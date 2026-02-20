@@ -4,7 +4,6 @@ status: draft | active | concluded | stale
 started: 2026-02-10
 concluded: null
 stale_after: 90
-tags: [hooks, claude-code, enforcement]
 ---
 
 # {Question as Title}

@@ -94,7 +94,7 @@ Provides structured read/write access to a database. Useful for plugins that nee
 
 ## References
 
-- [Doctrine](../doctrine.md) § The Six Primitives
+- [Doctrine](../development/DOCTRINE.md) § The Five Primitives
 - Official Claude Code plugins reference: MCP servers section
 - Official Claude Code MCP documentation: `code.claude.com/docs/mcp` (fetch locally via `scripts/fetch-claude-code-docs.py`)
 - Model Context Protocol specification: `modelcontextprotocol.io`

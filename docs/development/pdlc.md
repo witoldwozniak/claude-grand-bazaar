@@ -45,7 +45,7 @@ Milestones track shipping goals. The v1.0.0 milestone groups everything needed t
 
 ### 1. Concept
 
-Define the plugin's scope and ambition. This lives as the opening section of the Plugin Issue.
+Define the plugin's scope and ambition. This lives as the opening section of the Plugin Tracker.
 
 Answer three questions:
 
@@ -59,7 +59,7 @@ Keep it short. A few paragraphs, not a document. If the concept needs pages of e
 
 Study the domain. This is where "we study before we sell" lives.
 
-Start with academic papers and published industry research. Then community practice, handled with care. Cast a wide net, select carefully. For Claude Code-specific domains where academia is silent, the community is the frontier.
+Start with academic papers and published industry research. Next, our own experiments and direct experience with Claude Code — we build plugins daily and discover things no paper covers. Then community practice, handled with care. Cast a wide net, select carefully. For Claude Code-specific domains where academia is silent, direct experience and community practice are the frontier.
 
 This stage can take time. That's fine. A merchant who rushes his craft fills his shelves with junk.
 
@@ -79,7 +79,7 @@ Make the opinionated choices.
 
 Design includes scoping. Not every insight from Research belongs in the plugin. Ruthless selection is part of the craft.
 
-Design decisions go in the Plugin Issue. Significant architectural trade-offs get an ADR when they warrant one.
+Design decisions go in the Plugin Tracker. Significant architectural trade-offs get an ADR when they warrant one.
 
 ### 4. Build
 
@@ -93,7 +93,7 @@ Before marking Build as done, review what you've built against the Doctrine's qu
 
 Use it in real work. Not synthetic tests, not hypothetical scenarios — actual projects with actual problems.
 
-This is where the opinions get tested. Keep a lightweight evidence log in the Plugin Issue:
+This is where the opinions get tested. Keep a lightweight evidence log in the Plugin Tracker:
 
 - Which sessions used the plugin, and on what kind of work
 - What worked as designed
@@ -115,7 +115,7 @@ When the plugin is proven, run the shipping checklist:
 - [ ] README passes the stranger test — a stranger can understand what it does, why it exists, and how to use it without asking anyone
 - [ ] Fresh install verified — not from the dev environment, but as a stranger would encounter it
 - [ ] Cowork compatibility noted in the README
-- [ ] Plugin Issue closed
+- [ ] Plugin Tracker closed
 
 ### 6. Maintenance
 

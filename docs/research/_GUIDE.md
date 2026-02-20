@@ -1,3 +1,8 @@
+---
+title: Research Guidelines
+description: "How and when to write research documents."
+---
+
 # Research Guidelines
 
 Template for new research documents: [`_TEMPLATE.md`](./_TEMPLATE.md).
@@ -24,7 +29,6 @@ Examples:
 | `started`     | yes      | Date research began (YYYY-MM-DD)                               |
 | `concluded`   | no       | Date research concluded, `null` if open                        |
 | `stale_after` | no       | Days after `concluded` before auto-marking stale (default: 90) |
-| `tags`        | yes      | List of lowercase tags for cross-referencing                   |
 
 ## Research Definition of Done
 

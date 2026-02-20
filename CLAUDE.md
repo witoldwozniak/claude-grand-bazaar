@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
-Claude Grand Bazaar is a curated plugin marketplace for Claude Code. It ships opinionated, research-grounded plugins built from five primitives: **Skills** (knowledge/reasoning), **Hooks** (automated guardrails), **Subagents** (focused specialists), **Connectors** (external connections), and **LSP servers** (real-time code intelligence). The marketplace is at v0.1.0. The first plugin — `plugin-authoring` (v0.3.0) — is implemented and serves as the template for future plugins.
+Claude Grand Bazaar is a curated plugin marketplace for Claude Code and Claude Cowork. It ships opinionated, research-grounded plugins built from five primitives: **Skills** (knowledge/reasoning), **Hooks** (automated guardrails), **Subagents** (focused specialists), **Connectors** (external connections), and **LSP servers** (real-time code intelligence). The marketplace is at v0.1.0. The first plugin — `plugin-authoring` (v0.3.0) — is implemented and serves as the template for future plugins.
 
 <!-- NOTE: As this file grows, extract domain-specific guidance into Skills (plugin-authoring or new plugins). CLAUDE.md should stay a compact bootstrap — enough for Claude to orient, with Skills carrying the depth. -->
 
@@ -35,7 +35,7 @@ pytest tests/ -v
 **Validation (mirrors CI checks — run before pushing):**
 
 ```
-python scripts/index-research.py && python scripts/index-decisions.py   # regenerate indices
+python scripts/index_research.py && python scripts/index_decisions.py   # regenerate indices
 python scripts/validate_manifests.py       # marketplace.json + plugin.json structure
 python scripts/validate_frontmatter.py     # YAML frontmatter in docs, agents, skills
 python scripts/validate_links.py           # internal markdown links resolve
@@ -43,9 +43,9 @@ python scripts/validate_links.py           # internal markdown links resolve
 
 **Index freshness:** CI rejects PRs where index files are stale. After adding or editing docs in `research/` or `decisions/`, run the index scripts and commit the updated `_INDEX.md` files.
 
-**Platform docs:** `python scripts/fetch-claude-code-docs.py` fetches Claude Code documentation from `code.claude.com` for local reference. Use `--list` to see available pages, `--only` to fetch a subset. Output is gitignored. Fetched docs are at `docs/claude-code-docs`.
+**Platform docs:** `python scripts/fetch_claude_code_docs.py` fetches Claude Code documentation from `code.claude.com` for local reference. Use `--list` to see available pages, `--only` to fetch a subset. Output is gitignored. Fetched docs are at `docs/claude-code-docs`.
 
-**Agent frontmatter fields:** `name`, `description` (with `<example>` trigger blocks), `model` (sonnet/opus/haiku/inherit), `color`, `tools` (comma-separated), `skills` (references to skill names). Optional: `hooks`, `mcpServers`, `maxTurns`.
+**Agent frontmatter fields:** `name`, `description` (with `<example>` trigger blocks), `model` (sonnet/opus/haiku/inherit), `color`, `tools` (comma-separated). Optional: `skills` (references to skill names), `hooks`, `mcpServers`, `maxTurns`.
 
 **Skill SKILL.md frontmatter:** `name`, `description` (including trigger phrases), `author`, `license`. Optional: `disable-model-invocation`, `user-invocable`, `allowed-tools`, `context`, `agent`, `hooks`.
 
@@ -63,9 +63,11 @@ python scripts/validate_links.py           # internal markdown links resolve
 
 **marketplace.json** (at `.claude-plugin/marketplace.json`) has top-level fields `name`, `owner`, `metadata` (with `version`, `description`, `pluginRoot`), and a `plugins` array where each entry has `name`, `source` (directory name under `plugins/`), and `description`.
 
+**Markdown filenames:** UPPERCASE (`DOCTRINE.md`). Multi-word names use UPPER_SNAKE_CASE (`MY_GUIDE.md`). Index/guide files use `_PREFIX.md` format (`_GUIDE.md`, `_INDEX.md`).
+
 ## Git Conventions
 
-See [docs/development/GIT.md](docs/development/GIT.md) for full conventions: branching (`<type>/<scope>/<slug>`), Conventional Commits (`<type>(<scope>): <description>`), and squash-merge PRs.
+See [docs/development/GIT.md](docs/development/GIT.md) for full conventions: branching (`<type>/<scope>/<slug>`), Conventional Commits (`<type>(<scope>): <description>`), and merge strategy.
 
 ## Terminology
 
@@ -83,8 +85,8 @@ Also capitalize Claude Code concepts: Skills, Agent Skills, Subagents, Hooks, Co
 
 ## Standards for Shipping
 
-Every plugin must be: research-grounded (traceable to vetted sources), well-documented (stranger-readable), composable (no conflicts with other plugins), opinionated (takes a clear position), and tested in real work. See [Doctrine](docs/development/doctrine.md).
+Every plugin must be: research-grounded (traceable to vetted sources), well-documented (stranger-readable), composable (no conflicts with other plugins), opinionated (takes a clear position), and tested in real work. See [Doctrine](docs/development/DOCTRINE.md).
 
 ## Target Platform
 
-Primary target is Claude Code (all five primitives). Cowork is a secondary target — it shares the plugin format but supports three of the five: Skills, Subagents, and Connectors. Plugins without Hook or LSP dependencies work on both platforms. Design decisions are never compromised for Cowork compatibility. See [Doctrine](docs/development/doctrine.md).
+Primary target is Claude Code (all five primitives). Cowork is a secondary target — it shares the plugin format but supports three of the five: Skills, Subagents, and Connectors. Plugins without Hook or LSP dependencies work on both platforms. Design decisions are never compromised for Cowork compatibility. See [Doctrine](docs/development/DOCTRINE.md).

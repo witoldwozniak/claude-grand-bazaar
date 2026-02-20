@@ -11,7 +11,7 @@ _Draft — February 16, 2026_
 
 The Grand Bazaar uses GitHub Flow for branching and Conventional Commits 1.0.0 for commit messages. These conventions keep source history clean, attributable, and filterable per plugin.
 
-Commit types map directly to version bumps — see the [Versioning Strategy](versioning.md) for how commits drive plugin releases.
+Commit types map directly to version bumps — see the [Versioning Strategy](VERSIONING.md) for how commits drive plugin releases.
 
 ## Branching: GitHub Flow
 

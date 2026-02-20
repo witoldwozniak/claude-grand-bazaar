@@ -4,11 +4,12 @@
 Document types and their rules:
 - ADRs (docs/decisions/NNNN-*.md): title, status, date, decision-makers required;
   status in {draft, proposed, accepted, superseded, deprecated}; date is YYYY-MM-DD
-- Research (docs/research/*.md): question, status, started, tags required;
+- Research (docs/research/*.md): question, status, started required;
   status in {draft, active, concluded, stale}; started is YYYY-MM-DD
-- Skills (plugins/*/skills/*/SKILL.md): name, description required; name is kebab-case
-- Agents (plugins/*/agents/*.md): name, description required;
-  model (if present) in {sonnet, opus, haiku, inherit}
+- Skills (plugins/*/skills/*/SKILL.md): name, description, author, license required;
+  name is kebab-case
+- Agents (plugins/*/agents/*.md): name, description, model, color, tools required;
+  model in {sonnet, opus, haiku, inherit}
 
 Exit 0 if all checks pass, exit 1 if any fail.
 """
@@ -128,7 +129,7 @@ def validate_adr(path: Path, fields: dict) -> list[str]:
 def validate_research(path: Path, fields: dict) -> list[str]:
     """Validate a research document's front matter."""
     errors = []
-    for req in ("question", "status", "started", "tags"):
+    for req in ("question", "status", "started"):
         if not fields.get(req):
             errors.append(f"{path}: missing required field '{req}'")
 
@@ -152,7 +153,7 @@ def validate_research(path: Path, fields: dict) -> list[str]:
 def validate_skill(path: Path, fields: dict) -> list[str]:
     """Validate a skill's front matter."""
     errors = []
-    for req in ("name", "description"):
+    for req in ("name", "description", "author", "license"):
         if not fields.get(req):
             errors.append(f"{path}: missing required field '{req}'")
 
@@ -166,7 +167,7 @@ def validate_skill(path: Path, fields: dict) -> list[str]:
 def validate_agent(path: Path, fields: dict) -> list[str]:
     """Validate an agent's front matter."""
     errors = []
-    for req in ("name", "description"):
+    for req in ("name", "description", "model", "color", "tools"):
         if not fields.get(req):
             errors.append(f"{path}: missing required field '{req}'")
 

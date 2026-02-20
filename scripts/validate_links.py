@@ -9,6 +9,7 @@ source file's directory and reports broken links.
 Exit 0 if all links resolve, exit 1 if any are broken.
 """
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -18,6 +19,7 @@ from pathlib import Path
 LINK_RE = re.compile(r"(?<!!)\[([^\]]*)\]\(([^)]+)\)")
 
 SCAN_DIRS = [Path("docs"), Path("plugins")]
+EXCLUDE_DIRS = {Path("docs/ignore")}
 SCAN_ROOT_GLOBS = ["*.md"]
 
 
@@ -39,12 +41,39 @@ def collect_markdown_files() -> list[Path]:
     for pattern in SCAN_ROOT_GLOBS:
         files.extend(Path(".").glob(pattern))
 
-    # Recursive scan of docs/ and plugins/
+    # Recursive scan of docs/ and plugins/, skipping excluded directories
     for scan_dir in SCAN_DIRS:
         if scan_dir.is_dir():
-            files.extend(scan_dir.rglob("*.md"))
+            for f in scan_dir.rglob("*.md"):
+                if not any(f.is_relative_to(exc) for exc in EXCLUDE_DIRS):
+                    files.append(f)
 
     return sorted(set(files))
+
+
+def case_sensitive_exists(source_dir: Path, target_str: str) -> bool:
+    """Verify each path component matches actual filesystem case.
+
+    On case-insensitive systems (Windows, macOS) Path.exists() returns True
+    even when the case doesn't match.  This walks the target path component
+    by component and checks each name against the real directory listing,
+    catching mismatches that would break on Linux CI.
+    """
+    current = source_dir.resolve()
+    for part in Path(target_str).parts:
+        if part == "..":
+            current = current.parent
+            continue
+        if part == ".":
+            continue
+        try:
+            actual_entries = os.listdir(current)
+        except OSError:
+            return False
+        if part not in actual_entries:
+            return False
+        current = current / part
+    return True
 
 
 def resolve_link(source: Path, target: str) -> bool:
@@ -55,7 +84,11 @@ def resolve_link(source: Path, target: str) -> bool:
         return True  # Pure anchor link
 
     resolved = (source.parent / path_part).resolve()
-    return resolved.exists()
+    if not resolved.exists():
+        return False
+
+    # Case-sensitive check — catches mismatches invisible on Windows/macOS
+    return case_sensitive_exists(source.parent, path_part)
 
 
 def main() -> None:

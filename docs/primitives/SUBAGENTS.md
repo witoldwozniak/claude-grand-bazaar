@@ -183,5 +183,5 @@ Agents can define hooks in their frontmatter that only apply during the agent's 
 
 - `plugins/plugin-authoring/skills/create-agents/` — comprehensive agent creation guide
 - `plugins/plugin-authoring/agents/` — living examples (agent-creator, hook-author, skill-manager, etc.)
-- [Doctrine](../doctrine.md) § The Six Primitives, § On Roles and Theater
+- [Doctrine](../development/DOCTRINE.md) § The Five Primitives, § On Roles
 - Official Claude Code sub-agents documentation: `code.claude.com/docs/sub-agents` (fetch locally via `scripts/fetch-claude-code-docs.py`)

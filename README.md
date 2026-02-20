@@ -6,7 +6,7 @@ Opinionated, research-grounded plugins built from five primitives: **Skills** (k
 
 ## Philosophy
 
-Quality before quantity. We'd rather have five excellent plugins than twenty mediocre ones. Every plugin is research-grounded, well-documented, composable, opinionated, and tested in real work. See [Doctrine](docs/development/doctrine.md) for the full principles.
+Quality before quantity. We'd rather have five excellent plugins than twenty mediocre ones. Every plugin is research-grounded, well-documented, composable, opinionated, and tested in real work. See [Doctrine](docs/development/DOCTRINE.md) for the full principles.
 
 ## Status
 

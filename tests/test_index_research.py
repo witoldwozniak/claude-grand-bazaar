@@ -1,4 +1,4 @@
-"""Tests for scripts/index-research.py."""
+"""Tests for scripts/index_research.py."""
 
 from datetime import date, timedelta
 from pathlib import Path

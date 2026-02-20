@@ -1,4 +1,4 @@
-"""Tests for scripts/index-decisions.py."""
+"""Tests for scripts/index_decisions.py."""
 
 from pathlib import Path
 
