@@ -1,7 +1,7 @@
 ---
 title: "ADR-0013: Milestone Lifecycle & Maintenance"
 description: "Plugin milestones close at Ship. Maintenance issues are free-standing, not tracked by a persistent Tend issue."
-status: accepted
+status: deprecated
 date: 2026-02-16
 decision-makers:
   - witoldwozniak
@@ -22,6 +22,8 @@ The original PDLC draft kept the Tend issue open indefinitely and left the miles
 3. Separate maintenance milestone — new milestone created at Ship for ongoing work
 
 ## Decision Outcome
+
+**Deprecated.** Milestones are now Bazaar-wide only (v1.0.0 groups everything needed to launch). Per-plugin tracking uses Plugin Tracker issues, not individual milestones.
 
 Chosen option: "Milestone closes at Ship", because milestones represent bounded work with a clear beginning and end.
 
@@ -63,6 +65,5 @@ Chosen option: "Milestone closes at Ship", because milestones represent bounded 
 
 ## More Information
 
-- [PDLC: Tend stage](../development/pdlc.md) — the ongoing maintenance stage
-- [plugin-authoring Concept Capture: Tend](../notes-to-process/plugin-authoring-concept.md) — where this question was first identified
+- [PDLC: Maintenance stage](../development/PDLC.md) — the ongoing maintenance stage
 - Label convention: `stage/maintenance` for the PDLC stage, `plugin/<name>` for the plugin. "Tend" remains the PDLC stage name in prose; "maintenance" is the label name for practical searchability.

@@ -1,6 +1,6 @@
 ---
 title: "ADR-0003: Platform Compatibility Strategy"
-description: "Claude Code as primary target, Cowork as secondary target with compatibility tagging."
+description: "Claude Code as primary target with five primitives, Cowork as secondary target supporting three of the five."
 status: accepted
 date: 2026-02-15
 decision-makers:
@@ -11,14 +11,14 @@ decision-makers:
 
 ## Context and Problem Statement
 
-Research in `docs/notes-to-process/code-vs-cowork.md` establishes that Cowork (launched January 2026) shares Claude Code's plugin format — same `plugin.json` manifests, same directory structure, same `marketplace.json` catalogs. However, Cowork supports only four of our six primitives: Skills, Agents, MCP servers, and Commands. It does not support Hooks or LSP servers.
+Cowork (launched January 2026) shares Claude Code's plugin format — same `plugin.json` manifests, same directory structure, same `marketplace.json` catalogs. However, Cowork supports only three of the five primitives: Skills, Subagents, and Connectors. It does not support Hooks or LSP servers.
 
-The Bazaar needs a stance: how do we handle this partial overlap? We build opinionated plugins from six primitives, but a meaningful subset of those plugins will work on Cowork with zero modification. Ignoring Cowork wastes reach; bending toward it risks weakening plugins.
+The Bazaar needs a stance: how do we handle this partial overlap? We build opinionated plugins from five primitives, but a meaningful subset of those plugins will work on Cowork with zero modification. Ignoring Cowork wastes reach; bending toward it risks weakening plugins.
 
 ## Considered Options
 
 1. Claude Code-only — ignore Cowork entirely
-2. Dual-target — build for both platforms, constraining plugins to the four shared primitives
+2. Dual-target — build for both platforms, constraining plugins to the three shared primitives
 3. Claude Code-first with Cowork compatibility tagging
 
 ## Decision Outcome
@@ -30,8 +30,8 @@ Chosen option: "Claude Code-first with Cowork compatibility tagging", because it
 **Good:**
 
 - Plugins are never weakened to fit Cowork's subset. Hooks and LSP remain first-class primitives.
-- Plugins that naturally use only Skills, Agents, MCP servers, and Commands reach both audiences with no extra work.
-- The PDLC's Design and Review stages now check platform compatibility, making the status explicit rather than accidental.
+- Plugins that naturally use only Skills, Subagents, and Connectors reach both audiences with no extra work.
+- The PDLC's Design stage checks platform compatibility, making the status explicit rather than accidental.
 - A single `marketplace.json` repository serves both platforms — no format translation needed.
 
 **Bad:**
@@ -50,7 +50,7 @@ Chosen option: "Claude Code-first with Cowork compatibility tagging", because it
 ### Dual-target
 
 - Good, because every plugin works everywhere.
-- Bad, because it forbids hooks and LSP servers — two of the six primitives. Hooks provide deterministic enforcement that prompt-based instructions cannot guarantee. LSP provides real-time code intelligence. Giving these up to chase compatibility contradicts the Bazaar's design philosophy.
+- Bad, because it forbids hooks and LSP servers — two of the five primitives. Hooks provide deterministic enforcement that prompt-based instructions cannot guarantee. LSP provides real-time code intelligence. Giving these up to chase compatibility contradicts the Bazaar's design philosophy.
 - Bad, because it lets the least capable platform constrain the most capable one.
 
 ### Claude Code-first with Cowork compatibility tagging
@@ -62,7 +62,6 @@ Chosen option: "Claude Code-first with Cowork compatibility tagging", because it
 
 ## More Information
 
-- Research: `docs/notes-to-process/code-vs-cowork.md` — full analysis of Claude Code vs Cowork plugin systems
 - Doctrine: "Target and Portability" section reflects this decision
-- PDLC: Design (Stage 3), Review (Stage 6), and Ship (Stage 8) now include platform compatibility checks
-- Primitives: `docs/primitives/hooks.md` and `docs/primitives/lsp.md` carry platform notes marking them as Claude Code-only
+- PDLC: Design (Stage 3) includes platform compatibility checks
+- Primitives: `docs/primitives/HOOKS.md` and `docs/primitives/LSP.md` carry platform notes marking them as Claude Code-only

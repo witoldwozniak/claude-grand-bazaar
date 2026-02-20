@@ -1,7 +1,7 @@
 ---
 title: "ADR-0006: Core and Standalone Plugin Categories"
 description: "Two plugin categories: core (composable disciplines) and standalone (self-contained domains)."
-status: accepted
+status: deprecated
 date: 2026-02-13
 decision-makers:
   - witoldwozniak
@@ -22,6 +22,8 @@ Should all plugins be held to the same composition standard, or should the marke
 3. Multiple tiers — a gradient of composition expectations (core, extended, community, etc.)
 
 ## Decision Outcome
+
+**Deprecated.** The updated Doctrine removes the core/standalone distinction. All plugins follow the same composability rule: every plugin works alongside every other plugin without conflict.
 
 Chosen option: "Two categories: core and standalone", because the distinction between discipline-oriented plugins that must compose and domain-specific plugins that stand alone is real and worth encoding.
 
@@ -61,5 +63,5 @@ Chosen option: "Two categories: core and standalone", because the distinction be
 
 ## More Information
 
-- [Doctrine: Composability](../doctrine.md) — defines core (main hall) and standalone (side alleys) distinction
+- [Doctrine: Composability](../development/DOCTRINE.md) — composability rule for all plugins
 - [ADR-0005: No Inter-Plugin Dependencies](./0005-no-inter-plugin-dependencies.md) — plugins compose through scoping, not through code dependencies

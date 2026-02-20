@@ -30,14 +30,12 @@ Chosen option: "Bootstrap exception", because the deviations are scoped, documen
 **Good:**
 
 - plugin-authoring can be built without waiting for tooling that doesn't exist yet.
-- The exception is explicitly scoped: implicit intake (self-evidently necessary) and bundled research capability (to be extracted later).
+- The exception is explicitly scoped: implicit intake (self-evidently necessary) and bundled research capability.
 - Future plugins go through the standard process — the exception doesn't set a general precedent.
-- When a dedicated `domain-research` plugin is extracted later, plugin-authoring drops its bundled research tooling. No inter-plugin dependency is created.
 
 **Bad:**
 
 - The first plugin doesn't fully validate the intake process it will enforce for others.
-- Bundled research capability in plugin-authoring is a temporary duplication that must be actively cleaned up later.
 
 ## Pros and Cons of the Options
 
@@ -63,6 +61,5 @@ Chosen option: "Bootstrap exception", because the deviations are scoped, documen
 
 ## More Information
 
-- [plugin-authoring Concept Capture: Bootstrap Exception](../notes-to-process/plugin-authoring-concept.md) — details of the two deviations
-- [PDLC: Intake](../development/pdlc.md) — the standard intake process that plugin-authoring bypasses
+- [PDLC: Intake](../development/PDLC.md) — the standard intake process that plugin-authoring bypasses
 - [ADR-0005: No Inter-Plugin Dependencies](./0005-no-inter-plugin-dependencies.md) — bundled research capability will be extracted without creating a dependency

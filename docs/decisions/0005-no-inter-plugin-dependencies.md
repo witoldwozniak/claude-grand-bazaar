@@ -65,5 +65,5 @@ Chosen option: "No inter-plugin dependencies", because users choose their own pl
 
 ## More Information
 
-- [Versioning Strategy: Dependencies](../development/versioning.md) — "No inter-plugin dependencies" section
-- [Doctrine: Composability](../doctrine.md) — "Everything is made to work well together, but nothing is mandatory"
+- [Versioning Strategy: Dependencies](../development/VERSIONING.md) — "No inter-plugin dependencies" section
+- [Doctrine: Composability](../development/DOCTRINE.md) — "Everything is made to work well together, but nothing is mandatory"

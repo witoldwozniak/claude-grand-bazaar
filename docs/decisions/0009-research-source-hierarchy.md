@@ -1,6 +1,6 @@
 ---
 title: "ADR-0009: Research Source Hierarchy"
-description: "Academic > industry labs > community practice > opinion; hierarchy flexes by domain."
+description: "Three-tier hierarchy: academic and industry labs > direct experience with Claude Code > community practice; flexes by domain."
 status: accepted
 date: 2026-02-13
 decision-makers:
@@ -19,20 +19,21 @@ How should we prioritize sources, and how should the hierarchy adapt to domains 
 
 ## Considered Options
 
-1. Flexible hierarchy — academic > industry labs > community practice > opinion, flexing by domain
+1. Three-tier hierarchy — (1) academic research and industry labs, (2) direct experience with Claude Code, (3) community practice — flexing by domain
 2. Strict academic-first — require peer-reviewed sources for all foundational claims
 3. Pragmatic — use whatever sources are available, no hierarchy
 
 ## Decision Outcome
 
-Chosen option: "Flexible hierarchy", because it provides a clear default preference while acknowledging that the best available source varies by domain.
+Chosen option: "Three-tier hierarchy", because it provides a clear default preference while acknowledging that the best available source varies by domain.
 
 ### Consequences
 
 **Good:**
 
 - Clear default: prefer vetted, rigorous sources when they exist.
-- Explicit permission to use community sources as primary evidence in frontier domains where academia is silent.
+- Tier 2 (direct experience) explicitly validates hands-on work with Claude Code — we build plugins daily and discover things no paper covers. This is a legitimate source tier, not a fallback.
+- Tier 3 (community practice) is permitted as primary evidence in frontier domains where academia is silent, treated with extra caution.
 - The hierarchy is a guide for rigor, not a bureaucratic checklist — the principle is "best available source," not "only academic sources."
 
 **Bad:**
@@ -42,9 +43,10 @@ Chosen option: "Flexible hierarchy", because it provides a clear default prefere
 
 ## Pros and Cons of the Options
 
-### Flexible Hierarchy
+### Three-Tier Hierarchy
 
 - Good, because it acknowledges reality — Claude Code-specific mechanics have no academic coverage, and waiting for papers would block all work.
+- Good, because direct experience (tier 2) is recognized as a distinct, legitimate source — not lumped in with community practice or dismissed as anecdotal.
 - Good, because the hierarchy still defaults to the most rigorous available source, preventing lazy reliance on blog posts when papers exist.
 - Good, because it pairs with the research guidelines' emphasis on documenting method and citing sources.
 - Bad, because the flex point is a judgment call that could be applied too liberally.
@@ -63,5 +65,5 @@ Chosen option: "Flexible hierarchy", because it provides a clear default prefere
 
 ## More Information
 
-- [Doctrine: Research-Based Development](../doctrine.md) — the hierarchy statement and domain-flex principle
-- [Research Guidelines](../development/research.md) — file conventions, Definition of Done, and academic rigor guidance
+- [Doctrine: Research-Based Development](../development/DOCTRINE.md) — the hierarchy statement and domain-flex principle
+- [Research Guidelines](../research/_GUIDE.md) — file conventions, Definition of Done, and academic rigor guidance

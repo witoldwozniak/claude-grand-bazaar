@@ -1,7 +1,7 @@
 ---
 title: "ADR-0010: Agent-per-Stage Pattern"
 description: "plugin-authoring uses one dedicated agent per PDLC stage."
-status: accepted
+status: deprecated
 date: 2026-02-13
 decision-makers:
   - witoldwozniak
@@ -22,6 +22,8 @@ How should agents map to PDLC stages?
 3. Agents grouped by phase — one for discovery (Concept/Research/Design), one for execution (Build/Prove/Review/Document/Ship), one for maintenance (Tend)
 
 ## Decision Outcome
+
+**Deprecated.** The PDLC was simplified from nine stages to six. The agent-per-stage pattern for plugin-authoring is no longer the design approach.
 
 Chosen option: "One dedicated agent per PDLC stage", because deterministic skill assignment and tool scoping at the agent level guarantees correct context without relying on runtime judgment.
 
@@ -65,6 +67,5 @@ Chosen option: "One dedicated agent per PDLC stage", because deterministic skill
 
 ## More Information
 
-- [plugin-authoring Concept Capture: Core Architecture](../notes-to-process/plugin-authoring-concept.md) — agent-per-stage definition and stage details
-- [PDLC](../development/pdlc.md) — the nine stages that map to agents
-- [ADR-0004: Six Primitives Model](./0004-six-primitives-model.md) — agents are one of the six primitives
+- [PDLC](../development/PDLC.md) — the six stages (simplified from the original nine)
+- [ADR-0004: Five Primitives Model](./0004-six-primitives-model.md) — Subagents are one of the five primitives

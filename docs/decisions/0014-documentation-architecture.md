@@ -33,6 +33,7 @@ Chosen option: "Single source of truth", because each piece of documentation sho
 - **Primitives are self-documenting.** SKILL.md, agent .md frontmatter, hook configs — these structured files ARE the primitive documentation. No separate per-primitive READMEs needed.
 - **Research and design notes live externally.** GitHub Issues are the canonical record. Distilled summaries may live in `docs/` or the marketplace site, but they don't ship inside the plugin directory.
 - **Marketplace site assembled programmatically.** Pulls plugin README, extracts primitive metadata from frontmatter, links to research/design notes, builds a reference index. Per-plugin page with sub-pages per primitive, plus a cross-plugin reference index.
+- **Diataxis framework.** Bazaar documentation follows the Diataxis model — tutorials, how-to guides, reference, and explanation — ensuring each document serves a clear purpose and audience.
 - No duplication means no divergence. One place to update, one place to read.
 
 **Bad:**
@@ -66,6 +67,6 @@ Chosen option: "Single source of truth", because each piece of documentation sho
 
 ## More Information
 
-- [PDLC: Document stage](../development/pdlc.md) — updated to reference this ADR
+- [PDLC: Document stage](../development/PDLC.md) — updated to reference this ADR
 - [Plugin Anatomy](../../CLAUDE.md) — plugin directory structure showing README, SKILL.md, and agent frontmatter locations
-- [Doctrine: Documentation](../doctrine.md) — the stranger test principle that documentation must satisfy
+- [Doctrine: Documentation](../development/DOCTRINE.md) — the stranger test principle that documentation must satisfy

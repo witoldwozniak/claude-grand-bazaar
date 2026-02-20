@@ -11,7 +11,7 @@ decision-makers:
 
 ## Context and Problem Statement
 
-Plugins contain skills, agent prompts, hook scripts, and documentation — all of which are consumed by Claude as reasoning scaffolding. Some research suggests that prompting LLMs in different languages can produce qualitatively different outputs, occasionally outperforming English on specific tasks <!-- TODO(claude): needs citation -->. Should we leverage this by writing parts of plugins in other languages (e.g., Polish for certain reasoning patterns), or standardize on English throughout?
+Plugins contain skills, agent prompts, hook scripts, and documentation — all of which are consumed by Claude as reasoning scaffolding. Some research suggests that prompting LLMs in different languages can produce qualitatively different outputs, occasionally outperforming English on specific tasks (Kim et al. 2025, "One ruler to measure them all: Benchmarking multilingual long-context language models," arXiv:2503.01996 — found English ranked 6th of 26 languages, with performance fluctuating up to 20% by instruction language). Should we leverage this by writing parts of plugins in other languages (e.g., Polish for certain reasoning patterns), or standardize on English throughout?
 
 A secondary question: should plugins include internationalized variants for users who interact with Claude Code in non-English languages?
 

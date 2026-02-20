@@ -63,4 +63,4 @@ Chosen option: "Accept contributions after v1.0", because the project needs stab
 
 ## More Information
 
-- [Doctrine: Community](../doctrine.md) — community philosophy and the v1.0 contribution gate
+- [Doctrine: Community](../development/DOCTRINE.md) — community philosophy and the v1.0 contribution gate
