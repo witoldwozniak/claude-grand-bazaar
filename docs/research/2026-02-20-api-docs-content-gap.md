@@ -2,7 +2,7 @@
 question: "What plugin-relevant knowledge exists in the Claude API Docs that is absent from Claude Code Docs?"
 status: concluded
 started: 2026-02-20
-concluded: 2026-02-20
+concluded: 2026-02-21
 stale_after: 180
 tags: [documentation, api-docs, content-gap]
 ---
@@ -42,7 +42,7 @@ Triggered by [Issue #1](https://github.com/witoldwozniak/claude-grand-bazaar/iss
    - [Prompt engineering](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) — 8-page prompting guide
    - [Models overview](https://platform.claude.com/docs/en/about-claude/models/all-models) — per-model comparison data
 
-3. **Accessibility check:** Verified that `platform.claude.com` has **no `llms.txt`** endpoint and no publicly accessible `sitemap.xml`. This means an automated fetcher would need to scrape the navigation structure — materially harder and more brittle than the Claude Code Docs fetcher (which uses `llms.txt`).
+3. **Accessibility check:** ~~Verified that `platform.claude.com` has no `llms.txt` endpoint and no publicly accessible `sitemap.xml`. This means an automated fetcher would need to scrape the navigation structure — materially harder and more brittle than the Claude Code Docs fetcher (which uses `llms.txt`).~~ **Correction (2026-02-21):** This was wrong — `platform.claude.com` does expose `llms.txt`. See [Addendum: 2026-02-21](#addendum-2026-02-21) below.
 
 4. **Gap analysis:** For each API Docs topic, checked whether equivalent content exists in the Claude Code Docs and assessed the nature of any gap.
 
@@ -104,15 +104,31 @@ Not all API-only content matters equally for plugin development. This table asse
 
 - **Survey, not exhaustive audit.** The API Docs were surveyed via representative pages, not read page-by-page. Minor topics may have been missed.
 - **Point-in-time snapshot.** Both docs sources are actively maintained. Gaps identified today may close (or widen) as either source evolves. The `stale_after: 180` frontmatter field reflects this.
-- **No `llms.txt` verification is indirect.** The absence of `llms.txt` was checked via direct URL fetch, not by contacting Anthropic. It's possible a machine-readable index exists at a non-standard path.
+- **~~`llms.txt` absence was verified indirectly.~~ Confirmed wrong (2026-02-21).** The original check failed to find `llms.txt` at `platform.claude.com`. Subsequent verification confirmed it exists at `https://platform.claude.com/llms.txt` (~725 English pages) and `https://platform.claude.com/llms-full.txt` (>10 MB full content dump). The original indirect verification method was insufficient.
 - **Relevance assessment is subjective.** The High/Medium/Low ratings reflect judgment about current plugin development needs, not measured impact.
+
+## Addendum: 2026-02-21
+
+The original research concluded that `platform.claude.com` had no `llms.txt` endpoint, making an automated fetcher infeasible. **This was incorrect.**
+
+Subsequent verification confirmed two machine-readable endpoints:
+
+- **`https://platform.claude.com/llms.txt`** — structured index with ~725 English documentation pages, using the format `- [Title](URL) - Description` (description is optional on some entries)
+- **`https://platform.claude.com/llms-full.txt`** — full content dump (>10 MB), containing the complete text of all documentation pages
+
+This discovery reverses the implementation recommendation from Conclusion #2. The `llms.txt` index uses a slightly different format than the Claude Code Docs version (`- [Title](URL) - Description` vs `- [Title](URL): Description`), but is equally parseable. The index contains pages in multiple languages; only `/en/` entries are relevant for this project.
+
+**Impact on conclusions:**
+- Conclusion #2 changes from "Do NOT build" to "Build an automated fetcher" — the same `llms.txt`-based approach used by `scripts/fetch_claude_code_docs.py` is now viable
+- Conclusion #3 remains valid (URL references work) but is supplemented by the option of local copies for offline/fast access
+- The gap analysis and relevance assessments in the Findings section remain accurate and unchanged
 
 ## Conclusions
 
 1. **The API Docs contain substantial unique content** not present in the Claude Code Docs. The most plugin-relevant gaps are: prompt engineering depth, Agent SDK builder reference, structured outputs, and MCP connector details.
 
-2. **Do NOT build an automated fetch script.** The `platform.claude.com` site has no `llms.txt` or accessible `sitemap.xml`, so a fetcher would require brittle navigation scraping. The content changes slowly and can be referenced by URL.
+2. **~~Do NOT build an automated fetch script.~~ Build an automated fetcher (revised 2026-02-21).** The `platform.claude.com` site exposes `llms.txt` with ~725 English pages, making a fetcher feasible using the same approach as `scripts/fetch_claude_code_docs.py`. See [Addendum: 2026-02-21](#addendum-2026-02-21).
 
-3. **Reference API Docs by URL in relevant Skills.** When a Skill teaches prompt writing, link to the API Docs prompt engineering guide. When a Skill covers Connectors, link to the MCP connector and structured outputs docs. This gives plugin authors access to the depth without maintaining a local copy.
+3. **Reference API Docs by URL in relevant Skills, supplemented by local copies.** When a Skill teaches prompt writing, link to the API Docs prompt engineering guide. When a Skill covers Connectors, link to the MCP connector and structured outputs docs. URL references remain the primary mechanism, but `scripts/fetch_api_docs.py` can now fetch local copies for offline access and faster lookups (revised 2026-02-21).
 
 4. **The Agent SDK docs are the single most plugin-relevant API-only resource.** They describe the programmatic interface to all five primitives from a builder perspective — exactly the audience Grand Bazaar serves. These should be linked prominently in the plugin-authoring plugin.

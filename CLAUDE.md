@@ -45,6 +45,8 @@ python scripts/validate_links.py           # internal markdown links resolve
 
 **Platform docs:** `python scripts/fetch_claude_code_docs.py` fetches Claude Code documentation from `code.claude.com` for local reference. Use `--list` to see available pages, `--only` to fetch a subset. Output is gitignored. Fetched docs are at `docs/claude-code-docs`.
 
+**API docs:** `python scripts/fetch_api_docs.py` fetches Claude API documentation from `platform.claude.com` using its `llms.txt` index (~725 English pages). Same CLI interface: `--list`, `--only`, `--exclude`, `--delay`, `--index`, `-o`. Output is gitignored. Fetched docs are at `docs/api-docs`.
+
 **Agent frontmatter fields:** `name`, `description` (with `<example>` trigger blocks), `model` (sonnet/opus/haiku/inherit), `color`, `tools` (comma-separated). Optional: `skills` (references to skill names), `hooks`, `mcpServers`, `maxTurns`.
 
 **Skill SKILL.md frontmatter:** `name`, `description` (including trigger phrases), `author`, `license`. Optional: `disable-model-invocation`, `user-invocable`, `allowed-tools`, `context`, `agent`, `hooks`.
@@ -76,6 +78,7 @@ claude-grand-bazaar/
     primitives/         # One doc per primitive + _GUIDE.md
     research/           # Research docs + _INDEX.md
     claude-code-docs/   # Fetched platform docs (gitignored)
+    api-docs/           # Fetched API docs (gitignored)
   plugins/              # One subdirectory per plugin (none shipped yet)
   scripts/              # Validation, indexing, and fetch scripts
   tests/                # pytest tests mirroring scripts/
