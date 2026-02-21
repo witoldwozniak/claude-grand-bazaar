@@ -4,9 +4,9 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project Overview
 
-Claude Grand Bazaar is a curated plugin marketplace for Claude Code and Claude Cowork. It ships opinionated, research-grounded plugins built from five primitives: **Skills** (knowledge/reasoning), **Hooks** (automated guardrails), **Subagents** (focused specialists), **Connectors** (external connections), and **LSP servers** (real-time code intelligence). The marketplace is at v0.1.0. The first plugin — `plugin-authoring` (v0.3.0) — is implemented and serves as the template for future plugins.
+Claude Grand Bazaar is a curated plugin marketplace for Claude Code and Claude Cowork. It ships opinionated, research-grounded plugins built from five primitives: **Skills** (knowledge/reasoning), **Hooks** (automated guardrails), **Subagents** (focused specialists), **Connectors** (external connections), and **LSP servers** (real-time code intelligence). The marketplace is at v0.1.0. No plugins have shipped yet — `plugins/` is ready for the first plugin.
 
-<!-- NOTE: As this file grows, extract domain-specific guidance into Skills (plugin-authoring or new plugins). CLAUDE.md should stay a compact bootstrap — enough for Claude to orient, with Skills carrying the depth. -->
+<!-- NOTE: As this file grows, extract domain-specific guidance into Skills. CLAUDE.md should stay a compact bootstrap — enough for Claude to orient, with Skills carrying the depth. -->
 
 ## Working Style
 
@@ -45,6 +45,8 @@ python scripts/validate_links.py           # internal markdown links resolve
 
 **Platform docs:** `python scripts/fetch_claude_code_docs.py` fetches Claude Code documentation from `code.claude.com` for local reference. Use `--list` to see available pages, `--only` to fetch a subset. Output is gitignored. Fetched docs are at `docs/claude-code-docs`.
 
+**API docs:** `python scripts/fetch_api_docs.py` fetches Claude API documentation from `platform.claude.com` using its `llms.txt` index (~725 English pages). Same CLI interface: `--list`, `--only`, `--exclude`, `--delay`, `--index`, `-o`. Output is gitignored. Fetched docs are at `docs/api-docs`.
+
 **Agent frontmatter fields:** `name`, `description` (with `<example>` trigger blocks), `model` (sonnet/opus/haiku/inherit), `color`, `tools` (comma-separated). Optional: `skills` (references to skill names), `hooks`, `mcpServers`, `maxTurns`.
 
 **Skill SKILL.md frontmatter:** `name`, `description` (including trigger phrases), `author`, `license`. Optional: `disable-model-invocation`, `user-invocable`, `allowed-tools`, `context`, `agent`, `hooks`.
@@ -64,6 +66,31 @@ python scripts/validate_links.py           # internal markdown links resolve
 **marketplace.json** (at `.claude-plugin/marketplace.json`) has top-level fields `name`, `owner`, `metadata` (with `version`, `description`, `pluginRoot`), and a `plugins` array where each entry has `name`, `source` (directory name under `plugins/`), and `description`.
 
 **Markdown filenames:** UPPERCASE (`DOCTRINE.md`). Multi-word names use UPPER_SNAKE_CASE (`MY_GUIDE.md`). Index/guide files use `_PREFIX.md` format (`_GUIDE.md`, `_INDEX.md`).
+
+## Architecture
+
+```
+claude-grand-bazaar/
+  .claude-plugin/       # marketplace.json (marketplace manifest)
+  docs/
+    decisions/          # ADRs (NNNN-title.md) + _INDEX.md
+    development/        # DOCTRINE.md, GIT.md, PDLC.md, VERSIONING.md
+    primitives/         # One doc per primitive + _GUIDE.md
+    research/           # Research docs + _INDEX.md
+    claude-code-docs/   # Fetched platform docs (gitignored)
+    api-docs/           # Fetched API docs (gitignored)
+  plugins/              # One subdirectory per plugin (none shipped yet)
+  scripts/              # Validation, indexing, and fetch scripts
+  tests/                # pytest tests mirroring scripts/
+```
+
+## Gotchas
+
+- **Index staleness:** CI will reject PRs if `_INDEX.md` files don't match. Always run `index_research.py` and `index_decisions.py` after touching `docs/research/` or `docs/decisions/`.
+- **Validation mirrors CI:** Run all four validation commands before pushing — CI runs the same checks and failures block merge.
+- **Plugin path in marketplace.json:** The `source` field in each plugin entry must match the actual directory name under `plugins/`. If a plugin is renamed or moved, update both.
+- **Frontmatter is strict:** Agent and skill `.md` files require exact frontmatter fields. `validate_frontmatter.py` enforces required keys and allowed values (e.g., model must be sonnet/opus/haiku/inherit).
+- **No runtime dependencies:** All Python scripts use stdlib only — never add third-party imports to `scripts/`.
 
 ## Git Conventions
 

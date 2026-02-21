@@ -1,9 +1,0 @@
-{
-  "name": "plugin-authoring",
-  "version": "0.3.0",
-  "description": "Tools for building Claude Code extensions — agent-creator, plugin-builder, plugin-validator, hook-author, conversation-analyst, and skill-manager agents, plus skills for agent skills, creating agents, and writing LLM-optimized prose.",
-  "author": {
-    "name": "witoldwozniak"
-  },
-  "license": "Hippocratic-3.0"
-}
